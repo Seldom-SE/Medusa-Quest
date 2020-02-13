@@ -1428,3 +1428,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxOnTimer: 2
+  throwVelocity: 15

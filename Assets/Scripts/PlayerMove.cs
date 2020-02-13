@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
 
     private int groundedTimer;
     private Rigidbody2D rb;
+    private bool facingRight;
 
     private void Start()
     {
@@ -17,7 +18,12 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         // Horiontal movement
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * speed;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput > 0.01)
+            facingRight = true;
+        else if (horizontalInput < 0.01)
+            facingRight = false;
+        transform.position += new Vector3(horizontalInput * speed, 0);
 
         // Jumping
         if (groundedTimer > 0)
@@ -36,5 +42,10 @@ public class PlayerMove : MonoBehaviour
     public void Ground()
     {
         groundedTimer = coyoteTime;
+    }
+
+    public bool GetFacingRight()
+    {
+        return facingRight;
     }
 }
