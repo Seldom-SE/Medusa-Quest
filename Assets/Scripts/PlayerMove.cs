@@ -22,7 +22,7 @@ public class PlayerMove : MonoBehaviour
         // Jumping
         if (groundedTimer > 0)
         {
-            if (Input.GetButtonDown("Jump") && groundedTimer > 0)
+            if (Input.GetButtonDown("Jump"))
             {
                 // Jump
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
