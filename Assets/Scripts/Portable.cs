@@ -2,7 +2,9 @@
 
 public class Portable : MonoBehaviour
 {
-    public void BottomEnter(Collision2D collision)
+    protected Rigidbody2D rb;
+
+    public virtual void BottomEnter(Collision2D collision)
     {
         if (transform.parent == null && collision.gameObject.GetComponent<Portable>() != null)
         {
@@ -16,5 +18,33 @@ public class Portable : MonoBehaviour
         {
             transform.parent = null;
         }
+    }
+
+    // Parameters take null when the velocity is not to change
+    public void SetVelocity(float? x, float? y)
+    {
+        if (x is float xValue)
+        {
+            rb.velocity = new Vector2(xValue, rb.velocity.y);
+        }
+
+        if (y is float yValue)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, yValue);
+        }
+
+        foreach (Transform child in transform)
+        {
+            Portable portable = child.GetComponent<Portable>();
+            if (portable != null)
+            {
+                portable.SetVelocity(x, y);
+            }
+        }
+    }
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
     }
 }
